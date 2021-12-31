@@ -101,21 +101,21 @@ export async function main(ns) {
 			"iron-gym"];
 	for (var i = 0; i < servers0Port.length; ++i) {
 		var serv = servers0Port[i];
-
-		ns.scp("early-hack-template.script", serv);
-		ns.nuke(serv);
-		ns.exec("early-hack-template.script", serv, 6);
+								// BEFORE -> AFTER
+		ns.scp("early-hack-template.script", serv);	// scp() -> ns.scp()
+		ns.nuke(serv);					// nuke() -> ns.nuke()
+		ns.exec("early-hack-template.script", serv, 6); // exec() -> ns.exec()
 	}
-	while (!ns.fileExists("BruteSSH.exe")) {
-		ns.sleep(60000);
+	while (!ns.fileExists("BruteSSH.exe")) {		// fileExists() -> ns.fileExists()
+		ns.sleep(60000);				// sleep() -> ns.sleep()
 	}
 	for (var i = 0; i < servers1Port.length; ++i) {
-		var serv = servers1Port[i];
+		var serv = servers1Port[i];		
 
-		ns.scp("early-hack-template.script", serv);
-		ns.brutessh(serv);
-		ns.nuke(serv);
-		ns.exec("early-hack-template.script", serv, 12);
+		ns.scp("early-hack-template.script", serv);	// scp() -> ns.scp()
+		ns.brutessh(serv);				// brutessh() -> ns.brutessh()
+		ns.nuke(serv);					// nuke() -> ns.nuke()
+		ns.exec("early-hack-template.script", serv, 12); // exec() -> ns.exec()
 	}
 }
 ```
@@ -144,17 +144,17 @@ export async function main(ns) {
 	for (var i = 0; i < servers0Port.length; ++i) {
 		var serv = servers0Port[i];
 
-		await ns.scp("early-hack-template.script", serv);
+		await ns.scp("early-hack-template.script", serv);  // ns.scp() -> await ns.scp()
 		ns.nuke(serv);
 		ns.exec("early-hack-template.script", serv, 6);
 	}
 	while (!ns.fileExists("BruteSSH.exe")) {
-		await ns.sleep(60000);
+		await ns.sleep(60000);				   // ns.sleep() -> await ns.sleep()
 	}
 	for (var i = 0; i < servers1Port.length; ++i) {
 		var serv = servers1Port[i];
 
-		await ns.scp("early-hack-template.script", serv);
+		await ns.scp("early-hack-template.script", serv);  // ns.scp() -> await ns.scp()
 		ns.brutessh(serv);
 		ns.nuke(serv);
 		ns.exec("early-hack-template.script", serv, 12);
@@ -184,12 +184,12 @@ Mistake:
 /** @param {NS} ns **/
 export async function main(ns) {
 	let target = ns.args[0];
-    await myFunction(target);
+    	await myFunction(target); // <- ns is missing here
 }
 
 /** @param {NS} ns **/
-			  //ns is missing here
-async function myFunction(target) {
+			  
+async function myFunction(target) { // <- here too
 	await ns.hack(target);
 }
 ```
@@ -200,11 +200,11 @@ Fix:
 /** @param {NS} ns **/
 export async function main(ns) {
 	let target = ns.args[0];
-    await myFunction(ns, target);
+    await myFunction(ns, target); // ns has been included 
 }
 
 /** @param {NS} ns **/
-async function myFunction(ns, target) {
+async function myFunction(ns, target) { // here too
 	await ns.hack(target);
 }
 ```
@@ -224,13 +224,11 @@ Mistake:
 /** @param {NS} ns **/
 export async function main(ns) {
 	let target = ns.args[0];
-    // await is missing here
-	myFunction(ns, target);
+	myFunction(ns, target);  
 }
 
 /** @param {NS} ns **/
-// async is missing in the function signature
-function myFunction(ns, target) {
+function myFunction(ns, target) { // <- async is missing here
 	await ns.hack(target);
 }
 ```
@@ -240,11 +238,11 @@ Fix:
 /** @param {NS} ns **/
 export async function main(ns) {
 	let target = ns.args[0];
-	await myFunction(ns, target);
+	await myFunction(ns, target);	// <- because myFunction() is now async, it needs to be awaited
 }
 
 /** @param {NS} ns **/
-async function myFunction(ns, target) {
+async function myFunction(ns, target) { // <- async has been included
 	await ns.hack(target);
 }
 ```
@@ -273,12 +271,13 @@ Fix: Await something inside the loop. If nothing in the loop is awaitable, you c
 export async function main(ns) {
 	while(true) {
 		ns.tprint("Oh boy, I want to crash my game!")
-		await ns.sleep(50);
+		await ns.sleep(50); // <- await added
 	}
 }
 ```
 
 # Resources
-- https://bitburner.readthedocs.io/en/latest/
-- https://github.com/danielyxie/bitburner/blob/dev/markdown/bitburner.ns.md
+- Basic documentation: https://bitburner.readthedocs.io/en/latest/
+- All NS2 functions:   https://github.com/danielyxie/bitburner/blob/dev/markdown/bitburner.ns.md
+- Experimenta NS2<->NS1 converter by Ivma: https://bitbearner.netlify.app/bitbearner.html
 
