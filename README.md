@@ -134,7 +134,7 @@ export async function main(ns) {
 }
 ```
 
-The code above has been refactored (changed) to add ``ns`` in front of all game-related functions. However, if we tried to run the code inside the game, we'd get the following error:
+The code above has been *refactored* (changed) to add ``ns`` in front of all game-related functions. However, if we tried to run the code inside the game, we'd get the following error:
 
 ![](https://github.com/xRalic/NS1-to-NS2-Guide/blob/main/src/images/oldScriptWithNSError.png)
 
@@ -292,7 +292,7 @@ export async function main(ns) {
 
 # Resources
 - Basic documentation: https://bitburner.readthedocs.io/en/latest/
-- All NS2 functions:   https://github.com/danielyxie/bitburner/blob/dev/markdown/bitburner.ns.md
+- All NS functions:   https://github.com/danielyxie/bitburner/blob/dev/markdown/bitburner.ns.md
 - Experimental NS2<->NS1 converter by Ivma: https://bitbearner.netlify.app/bitbearner.html
 - Learn more about asynchronous programming: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous
 
