@@ -1,3 +1,15 @@
+- [First Steps](#first-steps)
+  * [Creating a NS2 file](#creating-a-ns2-file)
+  * [Porting your old code](#porting-your-old-code)
+- [Understanding the syntax differences between NS1 and NS2](#understanding-the-syntax-differences-between-ns1-and-ns2)
+  * [Placing ``"ns."`` in front of game related functions](#placing----ns----in-front-of-game-related-functions)
+  * [Async/await calls](#async-await-calls)
+- [Common Issues](#common-issues)
+  * [P: "The game says that ``ns.`` is not defined!"](#p---the-game-says-that---ns---is-not-defined--)
+  * [P: "The game is throwing an "unexpected reserved word" error!"](#p---the-game-is-throwing-an--unexpected-reserved-word--error--)
+  * [P: "The game is throwing an ``async/await`` error, but I've awaited everywhere you've told me to!"](#p---the-game-is-throwing-an---async-await---error--but-i-ve-awaited-everywhere-you-ve-told-me-to--)
+- [Resources](#resources)
+
 # First Steps
 
 ## Creating a NS2 file
