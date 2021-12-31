@@ -13,7 +13,7 @@
 # First Steps
 
 ## Creating a NS2 file
-In the terminal, type <mark>nano myScript.js</mark>. Your screen should now look like this:
+In the terminal, type ```nano myScript.js```. Your screen should now look like this:
 
 ![](https://github.com/xRalic/NS1-to-NS2-Guide/blob/main/src/images/myScript.png)
 
