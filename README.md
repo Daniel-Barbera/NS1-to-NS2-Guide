@@ -7,7 +7,7 @@ In the terminal, type <mark>nano myScript.js</mark>. Your screen should now look
 
 ## Porting your old code
 If, instead, you wish to port your code to NS2 from NS1:
-- Type "nano oldScript.js". This should open a new NS2 file.
+- Type ``nano oldScript.js``. This should open a new NS2 file.
 - Copy your old code, and paste it within the code template.
 
 Example: if your old script looked like this: 
@@ -126,8 +126,7 @@ The code above has been refactored (changed) to add ``ns`` in front of all game-
 
 This introduces us to #2:
 ## Async/await calls
-Some actions of the game, like the function ns.hack(), are asynchronous. Essentially, this means that they take some time, and you need to tell your script to wait for
-them to resolve by adding the keyword "await" before calling to them.
+Some actions of the game, like the function ``ns.hack()``, are <b>asynchronous</b>. Essentially, this means that they take some time, and you need to tell your script to wait for them to resolve by adding the keyword ``await`` before calling to them.
 
 ```js
 /** @param {NS} ns **/
@@ -163,8 +162,7 @@ export async function main(ns) {
 }
 ```
 
-The list of actions that need to be awaited can be found
-<a href="https://bitburner.readthedocs.io/en/latest/netscript/netscriptjs.html"> here. </a>
+The list of actions that need to be awaited can be found <a href="https://bitburner.readthedocs.io/en/latest/netscript/netscriptjs.html"> here. </a>
 Alternatively, you can hover your cursor over any function, and check if they return a promise, like in the following image.
 
 ![](https://github.com/xRalic/NS1-to-NS2-Guide/blob/main/src/images/Promise.png)
@@ -172,7 +170,7 @@ Alternatively, you can hover your cursor over any function, and check if they re
 # Common Issues
 	
 ## P: "The game says that "ns.someFunctionThatTotallyExists() is not a function!"
-A: If you have defined your own functions within the code and they're located outside of main, check if you've defined the ``ns``  object as a function parameter, so the function can use the game actions, just like main.
+A: If you have defined your own functions within the code and they're located outside of ``main``, check if you've defined the ``ns``  object as a function parameter, so the function can use the game actions, just like ``main``.
 
 // TODO: example
 
