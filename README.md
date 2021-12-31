@@ -138,7 +138,7 @@ The code above has been refactored (changed) to add ``ns`` in front of all game-
 
 This introduces us to #2:
 ## Async/await calls
-Some actions of the game, like the function ``ns.hack()``, are <b>asynchronous</b>. Essentially, this means that they take some time, and you need to tell your script to wait for them to resolve by adding the keyword ``await`` before calling to them. Learn more <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous">here.</a>
+Some actions of the game, like the function ``ns.hack()``, are <b>asynchronous</b>. Essentially, this means that they take some time, and you need to tell your script to wait for them to resolve by adding the keyword ``await`` before calling to them. (Learn more <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous">here.</a>)
 
 ```js
 /** @param {NS} ns **/
