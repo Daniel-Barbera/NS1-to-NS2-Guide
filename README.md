@@ -1,3 +1,5 @@
+**Table of Contents**
+--
 - [First Steps](#first-steps)
   * [Creating a NS2 file](#creating-a-ns2-file)
   * [Porting your old code](#porting-your-old-code)
@@ -260,7 +262,7 @@ async function myFunction(ns, target) { // <- async has been included
 ```
 
 ## P: "The game is throwing an ``async/await`` error, but I've awaited everywhere you've told me to!"
-A:  You may have written an infinite loop, without yielding control to the game. Inside infinite loops like while (true) loops, the game needs to take control from time to time to avoid crashing. If this should happen, the game will tell you by raising a red flag in the text editor.
+A:  You may have written an infinite loop, without yielding control to the game. Inside infinite loops like ``while (true)`` loops, the game needs to take control from time to time to avoid crashing. If this should happen, the game will tell you by raising a red flag in the text editor.
 
 Flag:
 
@@ -277,7 +279,7 @@ export async function main(ns) {
 }
 ```
 
-Fix: Await something inside the loop. If nothing in the loop is awaitable, you can add "await ns.sleep(50);", which will make the script await for 50 millisecond after every loop iteration.
+Fix: Await something inside the loop. If nothing in the loop is awaitable, you can add ``await ns.sleep(50)``, which will make the script await for 50 millisecond after every loop iteration.
 ```js
 /** @param {NS} ns **/
 export async function main(ns) {
