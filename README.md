@@ -163,33 +163,120 @@ export async function main(ns) {
 ```
 
 The list of actions that need to be awaited can be found <a href="https://bitburner.readthedocs.io/en/latest/netscript/netscriptjs.html"> here. </a>
-Alternatively, you can hover your cursor over any function, and check if they return a promise, like in the following image.
+Alternatively, you can hover your cursor over any function, and check if they return a ``promise``, like in the following image:
 
 ![](https://github.com/xRalic/NS1-to-NS2-Guide/blob/main/src/images/Promise.png)
 		
 # Common Issues
 	
-## P: "The game says that "ns.someFunctionThatTotallyExists() is not a function!"
+## P: "The game says that ``ns.`` is not defined!"
 A: If you have defined your own functions within the code and they're located outside of ``main``, check if you've defined the ``ns``  object as a function parameter, so the function can use the game actions, just like ``main``.
 
-// TODO: example
+Error code: 
 
-Likewise, once you have the ``ns`` object inside your function signature, you will need to pass it as an argument whenever you call to it.
+
+![](https://github.com/xRalic/NS1-to-NS2-Guide/blob/main/src/images/nsNotDefinedError.png)
+
+
+Mistake:
+
+```js
+/** @param {NS} ns **/
+export async function main(ns) {
+	let target = ns.args[0];
+    await myFunction(target);
+}
+
+/** @param {NS} ns **/
+			  //ns is missing here
+async function myFunction(target) {
+	await ns.hack(target);
+}
+```
+
+Fix:
+
+```js
+/** @param {NS} ns **/
+export async function main(ns) {
+	let target = ns.args[0];
+    await myFunction(ns, target);
+}
+
+/** @param {NS} ns **/
+async function myFunction(ns, target) {
+	await ns.hack(target);
+}
+```
+
+As you may have noticed, once you have the ``ns`` object inside your function signature, you will need to pass it as an argument whenever you call to it.
 
 ## P: "The game is throwing an "unexpected reserved word" error!"
-A: The usual cause for this, is that you've defined your own function outside of main that makes an ``async`` call like ``async ns.hack()``, but the function itself has not been defined as ``async``. All functions that use ``async`` code must be ``async" themselves.
+A: The usual cause for this, is that you've defined your own function outside of main that makes an ``async`` call like ``async ns.hack()``, but the function itself has not been defined as ``async``. All functions that use ``async`` code must be ``async`` themselves.
 
-// TODO: example
+Error code:
 
-// unsure on whether to comment on forEach async calls 
 
-## P: "The game is throwing an async/await error, but I've awaited everywhere you've told me to!"
-A:  You have written an infinite loop, without yielding control to the game. Inside infinite loops like while (true) loops, the game needs to take control from time to time to
-avoid crashing. If this should happen, the game will tell you by raising a red flag in the text editor.
+![](https://github.com/xRalic/NS1-to-NS2-Guide/blob/main/src/images/NoAsyncError.png)
 
-// TODO: Image
+Mistake:
+```js
+/** @param {NS} ns **/
+export async function main(ns) {
+	let target = ns.args[0];
+    // await is missing here
+	myFunction(ns, target);
+}
+
+/** @param {NS} ns **/
+// async is missing in the function signature
+function myFunction(ns, target) {
+	await ns.hack(target);
+}
+```
+
+Fix:
+```js
+/** @param {NS} ns **/
+export async function main(ns) {
+	let target = ns.args[0];
+	await myFunction(ns, target);
+}
+
+/** @param {NS} ns **/
+async function myFunction(ns, target) {
+	await ns.hack(target);
+}
+```
+
+## P: "The game is throwing an ``async/await`` error, but I've awaited everywhere you've told me to!"
+A:  You may have written an infinite loop, without yielding control to the game. Inside infinite loops like while (true) loops, the game needs to take control from time to time to avoid crashing. If this should happen, the game will tell you by raising a red flag in the text editor.
+
+Flag:
+
+![](https://github.com/xRalic/NS1-to-NS2-Guide/blob/main/src/images/infiniteLoopNoAwait.png)
+
+Mistake:
+```js
+/** @param {NS} ns **/
+export async function main(ns) {
+	while(true) {
+		ns.tprint("Oh boy, I want to crash my game!");
+		// no await here
+	}
+}
+```
 
 Fix: Await something inside the loop. If nothing in the loop is awaitable, you can add "await ns.sleep(50);", which will make the script await for 50 millisecond after every loop iteration.
+```js
+/** @param {NS} ns **/
+export async function main(ns) {
+	while(true) {
+		ns.tprint("Oh boy, I want to crash my game!")
+		await ns.sleep(50);
+	}
+}
+```
 
 # Resources
 - https://bitburner.readthedocs.io/en/latest/
