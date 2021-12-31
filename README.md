@@ -58,8 +58,8 @@ After copying it inside the code template, it should look like this:
 
 ```js
 
-//** @param {NS} ns **//
-export async function main(ns) {
+//** @param {NS} ns **//	// <- This is automatically added above your functions so the text editor can autocomplete and show function definitions.
+export async function main(ns) {	// <- main function declaration and start (you need a main function for your code to execute) 
 	var servers0Port = ["n00dles",
 			"sigma-cosmetics",
 			"joesguns",
@@ -88,7 +88,7 @@ export async function main(ns) {
 		nuke(serv);
 		exec("early-hack-template.script", serv, 12);
 	}
-}
+}	// <- main function end
 ````
 
 Note the ``ns`` part inside ``export async function main (ns)``. This will be important later.
@@ -138,7 +138,7 @@ The code above has been refactored (changed) to add ``ns`` in front of all game-
 
 This introduces us to #2:
 ## Async/await calls
-Some actions of the game, like the function ``ns.hack()``, are <b>asynchronous</b>. Essentially, this means that they take some time, and you need to tell your script to wait for them to resolve by adding the keyword ``await`` before calling to them.
+Some actions of the game, like the function ``ns.hack()``, are <b>asynchronous</b>. Essentially, this means that they take some time, and you need to tell your script to wait for them to resolve by adding the keyword ``await`` before calling to them. Learn more <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous">here.</a>
 
 ```js
 /** @param {NS} ns **/
@@ -212,11 +212,11 @@ Fix:
 /** @param {NS} ns **/
 export async function main(ns) {
 	let target = ns.args[0];
-    await myFunction(ns, target); // ns has been included 
+   	await myFunction(ns, target); // <- ns has been included 
 }
 
 /** @param {NS} ns **/
-async function myFunction(ns, target) { // here too
+async function myFunction(ns, target) { // <- here too
 	await ns.hack(target);
 }
 ```
@@ -224,7 +224,7 @@ async function myFunction(ns, target) { // here too
 As you may have noticed, once you have the ``ns`` object inside your function signature, you will need to pass it as an argument whenever you call to it.
 
 ## P: "The game is throwing an "unexpected reserved word" error!"
-A: The usual cause for this, is that you've defined your own function outside of main that makes an ``async`` call like ``async ns.hack()``, but the function itself has not been defined as ``async``. All functions that use ``async`` code must be ``async`` themselves.
+A: The usual cause for this, is that you've defined your own function outside of main that makes an ``async`` call like ``await ns.hack()``, but the function itself has not been defined as ``async``. All functions that use ``async`` code must be ``async`` themselves.
 
 Error code:
 
@@ -292,4 +292,5 @@ export async function main(ns) {
 - Basic documentation: https://bitburner.readthedocs.io/en/latest/
 - All NS2 functions:   https://github.com/danielyxie/bitburner/blob/dev/markdown/bitburner.ns.md
 - Experimental NS2<->NS1 converter by Ivma: https://bitbearner.netlify.app/bitbearner.html
+- Learn more about asynchronous programming: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous
 
