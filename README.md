@@ -291,5 +291,5 @@ export async function main(ns) {
 # Resources
 - Basic documentation: https://bitburner.readthedocs.io/en/latest/
 - All NS2 functions:   https://github.com/danielyxie/bitburner/blob/dev/markdown/bitburner.ns.md
-- Experimenta NS2<->NS1 converter by Ivma: https://bitbearner.netlify.app/bitbearner.html
+- Experimental NS2<->NS1 converter by Ivma: https://bitbearner.netlify.app/bitbearner.html
 
